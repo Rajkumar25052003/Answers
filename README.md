@@ -36,3 +36,7 @@ A TestModel instance is created within a transaction.
 The post_save signal fires immediately after calling obj.save(), displaying Signal executed: Rollback Test.
 An exception is raised, causing the transaction to be rolled back.
 However, since the signal was triggered before the rollback occurred, it still executed, confirming that signals do not inherently follow transaction boundaries.
+
+Custom classes in python question answer :
+
+This approach defines a separate RectangleIterator class to handle iteration. It stores the length and width in a list and uses an index to track the current position. The __next__() method returns each value sequentially and raises StopIteration when all elements have been accessed. The Rectangle class implements __iter__() to return an instance of RectangleIterator, allowing objects of Rectangle to be iterated over in a structured manner.
