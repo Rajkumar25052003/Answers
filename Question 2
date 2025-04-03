@@ -1,0 +1,30 @@
+from django.dispatch import Signal, receiver
+import threading
+import time
+
+# Create a signal
+my_signal = Signal()
+
+@receiver(my_signal)
+def receiver_1(sender, **kwargs):
+    print(f"Receiver 1 running in thread: {threading.current_thread().name}")
+    time.sleep(1)
+
+@receiver(my_signal)
+def receiver_2(sender, **kwargs):
+    print(f"Receiver 2 running in thread: {threading.current_thread().name}")
+    time.sleep(1)
+
+def caller_function():
+    print(f"Caller running in thread: {threading.current_thread().name}")
+    my_signal.send(sender=None)
+
+# Demonstrate in main thread
+print("=== Main thread ===")
+caller_function()
+
+# Demonstrate in another thread
+print("\n=== Separate thread ===")
+other_thread = threading.Thread(target=caller_function)
+other_thread.start()
+other_thread.join()
