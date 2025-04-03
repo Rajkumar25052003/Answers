@@ -1,0 +1,20 @@
+from django.db import models, transaction
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+class TestModel(models.Model):
+    name = models.CharField(max_length=100)
+
+@receiver(post_save, sender=TestModel)
+def my_signal(sender, instance, **kwargs):
+    print(f"Signal executed: {instance.name}")
+
+# Testing transaction behavior
+try:
+    with transaction.atomic():
+        obj = TestModel(name="Rollback Test")
+        obj.save()
+        print("Saved inside transaction")
+        raise Exception("Forcing rollback!")  # This rolls back the transaction
+except:
+    print("Transaction rolled back!")
