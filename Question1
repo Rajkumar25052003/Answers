@@ -1,0 +1,21 @@
+from django.dispatch import Signal, receiver
+import time
+
+# Create a signal
+my_signal = Signal()
+
+@receiver(my_signal)
+def receiver_1(sender, **kwargs):
+    print("Receiver 1 starting")
+    time.sleep(2)  # Simulate a 2-second task
+    print("Receiver 1 finished")
+
+@receiver(my_signal)
+def receiver_2(sender, **kwargs):
+    print("Receiver 2 starting")
+    time.sleep(1) # Simulate a 1-second task
+    print("Receiver 2 finished")
+
+print("Before sending signal")
+my_signal.send(sender=None)
+print("After sending signal")
