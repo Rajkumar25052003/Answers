@@ -6,6 +6,7 @@ The total runtime is approximately 3 seconds (2 + 1), indicating that the functi
 Receiver 1 must complete before Receiver 2 begins, demonstrating sequential execution.
 
 This behavior highlights synchronous execution because:
+
 The sender remains blocked while the receivers are running.
 The receivers execute in a predictable, ordered manner.
 There is no parallelism or asynchronous execution involved.
