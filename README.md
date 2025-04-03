@@ -27,3 +27,12 @@ The caller function runs in Thread-1.
 Both receivers execute within Thread-1 as well.
 Blocking Behavior:
 The time.sleep() calls delay the execution of the calling thread, confirming that signals do not run in parallel.
+
+Question 3 answer :
+
+By default, Django signals are not tied to the same database transaction as the caller. They trigger instantly upon execution, even if the transaction is later rolled back. As a result, if a transaction fails and is rolled back, the signal may have already executed, which can lead to inconsistencies.
+
+A TestModel instance is created within a transaction.
+The post_save signal fires immediately after calling obj.save(), displaying Signal executed: Rollback Test.
+An exception is raised, causing the transaction to be rolled back.
+However, since the signal was triggered before the rollback occurred, it still executed, confirming that signals do not inherently follow transaction boundaries.
